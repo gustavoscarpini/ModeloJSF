@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:an="http://java.sun.com/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="//template.xhtml">
+    <ui:define name="body">
+        <h:form id="Formulario">
+            <p:panel header="Cadastro de Pessoa Física">
+                <table style="width: 100%">
+                    <tr valign="top">
+                        <td>
+                            <div style="float: top">
+                                <h:panelGrid columns="2">
+                                    <an:labelObrigatorio value="Nome"/>
+                                    <p:inputText value="#{pessoaFisicaControlador.selecionado.nome}" style="width: 100%"
+                                                 title="Digite o nome da pessoa"/>
+                                    <an:labelObrigatorio value="CPF"/>
+                                    <p:inputMask mask="999.999.999-99"
+                                                 value="#{pessoaFisicaControlador.selecionado.cpf}" size="10"
+                                                 title="Digite o CPF"/>
+                                    <an:labelObrigatorio value="RG"/>
+                                    <p:inputText value="#{pessoaFisicaControlador.selecionado.rg}" size="10"
+                                                 title="Digite o RG"/>
+                                    <an:labelObrigatorio value="Data de Nascimento"/>
+                                    <p:calendar value="#{pessoaFisicaControlador.selecionado.dataNascimento}"
+                                                 pattern="dd/MM/yyyy" style="width: 80px"/>
+                                    <h:outputLabel value="E-mail"/>
+                                    <p:inputText value="#{pessoaFisicaControlador.selecionado.eMail}"
+                                                 style="width: 500px"/>
+                                </h:panelGrid>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="text-align: center; padding: 20px 10px 0px 0px ">
+                                <center>
+                                    <h:panelGrid columns="1" style="text-align: center">
+                                        <p:graphicImage id="oFotoUpload"
+                                                        alt="Selecione uma Foto"
+                                                        width="110"
+                                                        height="150"
+                                                        style="height: 150px; text-align: center;"
+                                                        value="#{pessoaFisicaControlador.imagemFoto}"/>
+                                        <p:fileUpload fileUploadListener="#{pessoaFisicaControlador.uploadArquivo}"
+                                                      update="@form"
+                                                      process="@form"
+                                                      cancelLabel="Cancelar"
+                                                      uploadLabel="Enviar"
+                                                      label="Selecionar"
+                                                      id="botaoUploadFoto"
+                                                      sizeLimit="10485760"
+                                                      invalidFileMessage="O tipo do arquivo é inválido!"
+                                                      invalidSizeMessage="O arquivo enviado é muito grande!"/>
+                                    </h:panelGrid>
+                                </center>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <p:panel header="Endereço">
+                    <h:panelGrid columns="2">
+                        <an:labelObrigatorio value="Tipo de Endereço"/>
+                        <p:selectOneMenu value="#{pessoaFisicaControlador.endereco.tipoEndereco}">
+                            <f:selectItems value="#{pessoaFisicaControlador.tiposEndereco}"/>
+                        </p:selectOneMenu>
+                        <an:labelObrigatorio value="Logradouro"/>
+                        <p:inputText value="#{pessoaFisicaControlador.endereco.logradouro}" maxlength="" size="100"/>
+                        <an:labelObrigatorio value="Número"/>
+                        <p:inputText value="#{pessoaFisicaControlador.endereco.numero}" size="5" maxlength="5"
+                                     styleClass="numero"/>
+                        <h:outputLabel value="Complemento"/>
+                        <p:inputText value="#{pessoaFisicaControlador.endereco.complemento}" size="100"/>
+                        <an:labelObrigatorio value="Bairro"/>
+                        <p:inputText value="#{pessoaFisicaControlador.endereco.bairro}" size="100"/>
+                        <an:labelObrigatorio value="CEP"/>
+                        <p:inputMask value="#{pessoaFisicaControlador.endereco.cep}" mask="99999-999" size="10"/>
+                        <an:labelObrigatorio value="Principal"/>
+                        <p:selectBooleanCheckbox value="#{pessoaFisicaControlador.endereco.principal}"/>
+
+
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton value="Adicionar Endereço"
+                                     actionListener="#{pessoaFisicaControlador.adicionaEndereco}"
+                            update="@form"/>
+
+                    <p:dataTable id="tabelaEnderecos" value="#{pessoaFisicaControlador.listaEderecoPessoa}"
+                                 var="endereco" styleClass="mtop10" emptyMessage="Sem registros...">
+
+                        <p:column headerText="Tipo de Endereço">
+                            <h:outputText value="#{endereco.enderecoCorreio.tipoEndereco}"/>
+                        </p:column>
+                        <p:column headerText="Logradouro">
+                            <h:outputText value="#{endereco.enderecoCorreio.logradouro}"/>
+                        </p:column>
+                        <p:column headerText="Número">
+                            <h:outputText value="#{endereco.enderecoCorreio.numero}"/>
+                        </p:column>
+                        <p:column headerText="Bairro">
+                            <h:outputText value="#{endereco.enderecoCorreio.bairro}"/>
+                        </p:column>
+                        <p:column headerText="CEP">
+                            <h:outputText value="#{endereco.enderecoCorreio.cep}"/>
+                        </p:column>
+                        <p:column headerText="Principal">
+                            <h:outputText value="#{endereco.enderecoCorreio.principal eq true? 'Sim': 'Não'}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash"
+                                             actionListener="#{pessoaFisicaControlador.removeEndereco(endereco)}"
+                                             update="@form"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </p:panel>
+            <br/>
+            <p:panel header="Telefones">
+                <h:panelGrid columns="2">
+                    <an:labelObrigatorio value="Tipo de Telefone"/>
+                    <p:selectOneMenu value="#{pessoaFisicaControlador.telefone.tipoTelefone}">
+                        <f:selectItems value="#{pessoaFisicaControlador.tiposTelefone}"/>
+                    </p:selectOneMenu>
+                    <an:labelObrigatorio value="Número do Telefone"/>
+                    <p:inputText value="#{pessoaFisicaControlador.telefone.numero}" styleClass="numero"/>
+                </h:panelGrid>
+                <br/>
+                <p:commandButton value="Adicionar Telefone" update="@form"
+                                 actionListener="#{pessoaFisicaControlador.adicionaTelefone}"/>
+                <br/>
+                <p:dataTable value="#{pessoaFisicaControlador.listaTelefones}"
+                             var="telefone" styleClass="mtop10" emptyMessage="Sem registros...">
+                    <p:column headerText="Tipo de Telefone">
+                        <h:outputLabel value="#{telefone.tipoTelefone}"/>
+                    </p:column>
+                    <p:column headerText="Número">
+                        <h:outputLabel value="#{telefone.numero}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{pessoaFisicaControlador.removeTelefone(telefone)}"
+                                         update="@form"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:commandButton actionListener="#{pessoaFisicaControlador.salvar}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

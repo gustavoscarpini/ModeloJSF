@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fc="http://java.sun.com/jsf/composite/components"
+      xmlns:f="http://java.sun.com/jsf/core">    
+    <ui:composition template="//template.xhtml">
+        <ui:define name="body">
+            <h:form id="Formulario">                
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText value="Novo Processo" rendered="#{processoControlador.operacao eq 'NOVO'}" />
+                    </f:facet>
+                    <h:panelGrid columns="2">
+
+                        <fc:labelObrigatorio para="numero" value="Número:"/>
+                        <p:inputText id="numero" styleClass="numero" 
+                                     value="#{processoControlador.selecionado.numero}"                                     
+                                     title="Digite um número desse processo."/>
+
+                        <fc:labelObrigatorio para="dataInicio" value="Data de Início:"/>
+                        <p:calendar id="dataInicio"
+                                    value="#{processoControlador.selecionado.inicio}"
+                                    pattern="dd/MM/yyyy"
+                                    title="Digite a data de início desse processo"/>
+
+                        <fc:labelObrigatorio para="reclamante" value="Reclamantes:"/>
+                        <p:outputPanel id="reclamante">
+                            <table>
+                                <ui:repeat value="#{processoControlador.selecionado.reclamados}" var="reclamante">
+                                    <tr>
+                                        <td>
+                                            <p:inputText value="#{reclamante.nome}" styleClass="negrito" readonly="true"/>
+                                        </td>
+                                        <td>
+                                             <p:inputText value="#{reclamante.cpfCnpj}" styleClass="negrito" readonly="true"/>
+                                             
+                                        </td>
+                                        <td valign="top">
+                                            <p:commandButton icon="ui-icon-arrowthickstop-1-s" style="margin: 0 !important" rendered="#{processoControlador.pessoas.indexOf(reclamante) eq processoControlador.pessoas.size() -1}" />
+                                        </td>
+                                        <td valign="top">
+                                            <p:commandButton icon="ui-icon-trash" style="margin: 0 !important" rendered="#{processoControlador.pessoas.indexOf(reclamante) eq processoControlador.pessoas.size() -1}" />
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:panel>
+                <fc:rodapePadrao controlador="#{processoControlador}" id="rodapePadrao"/>
+            </h:form>    
+        </ui:define>
+    </ui:composition>
+</html>
+

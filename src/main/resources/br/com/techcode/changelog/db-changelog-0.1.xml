@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="peixe" id="10">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet id="1" author="gustavo">    
+        <createTable tableName="TESTE">
+            <column name="TESTE" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1" author="andregustavo">
+        <delete tableName="TESTE"/>
+    </changeSet>
+    <changeSet author="andregustavo" id="2">
+        <createTable tableName="REVISAOAUDITORIA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_C00128559" />
+            </column>
+            <column name="DATAHORA" type="${datatempo}"/>
+            <column name="IP" type="${descricaolonga}"/>
+            <column name="USUARIO" type="${descricaolonga}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="andregustavo">
+        <createTable tableName="ARQUIVO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARQUIVO"/>
+            </column>
+            <column name="DESCRICAO" type="${descricaolonga}"/>
+            <column name="MIMETYPE" type="${descricaolonga}"/>
+            <column name="NOME" type="${descricaolonga}"/>
+            <column name="TAMANHO" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="andregustavo">
+        <createTable tableName="ARQUIVO_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="DESCRICAO" type="${descricaolonga}"/>
+            <column name="MIMETYPE" type="${descricaolonga}"/>
+            <column name="NOME" type="${descricaolonga}"/>
+            <column name="TAMANHO" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="andregustavo">
+        <addPrimaryKey tableName="ARQUIVO_AUD" columnNames="ID, REV" constraintName="PK_ARQUIVO_AUD"/>
+    </changeSet>
+    <changeSet id="6" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ARQUIVO_AUD" baseColumnNames="REV" constraintName="FK_REV_ARQUIVO" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/>
+    </changeSet>
+    <changeSet id="7" author="andregustavo">
+        <createTable tableName="ARQUIVOPARTE">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARQUIVOPARTE"/>
+            </column>
+            <column name="DADOS" type="${arquivo}"/>
+            <column name="ARQUIVO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ARQUIVOPARTE" baseColumnNames="ARQUIVO_ID" constraintName="FK_ARQ_ARQPARTE" referencedTableName="ARQUIVO" referencedColumnNames="ID" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"/>
+    </changeSet>
+    <changeSet id="9" author="andregustavo">
+        <createTable tableName="PESSOA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="10" author="andregustavo">
+        <createTable tableName="PESSOA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="11" author="andregustavo">
+        <addPrimaryKey tableName="PESSOA_AUD" columnNames="ID, REV" constraintName="PK_PESSOA_AUD"/>
+    </changeSet>
+    <changeSet id="12" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="PESSOA_AUD" baseColumnNames="REV" constraintName="FK_REV_PESSOA" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/>
+    </changeSet>
+    <changeSet id="13" author="andregustavo">
+        <createTable tableName="ARQUIVOPESSOA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ARQUIVOPESSOA"/>
+            </column>
+            <column name="ARQUIVO_ID" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="DATAUPLOAD" type="${datatempo}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="14" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ARQUIVOPESSOA" baseColumnNames="PESSOA_ID" constraintName="FK_PESSOAARQ_PESSOA" referencedTableName="PESSOA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="15" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ARQUIVOPESSOA" baseColumnNames="ARQUIVO_ID" constraintName="FK_PESSOAARQ_ARQUIVO" referencedTableName="ARQUIVO" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="16" author="andregustavo">
+        <createTable tableName="ARQUIVOPESSOA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="ARQUIVO_ID" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="DATAUPLOAD" type="${datatempo}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="17" author="andregustavo">
+        <addPrimaryKey tableName="ARQUIVOPESSOA_AUD" columnNames="ID, REV" constraintName="PK_ARQUIVOPESSOA_AUD"/>
+    </changeSet>
+    <changeSet id="18" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ARQUIVOPESSOA_AUD" baseColumnNames="REV" constraintName="FK_PESSOAARQREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="19" author="andregustavo">
+        <createTable tableName="PESSOAFISICA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOAFISICA"/>
+            </column>
+            <column name="NOME" type="${descricaolonga}"/>
+            <column name="CPF" type="${cpf}"/>
+            <column name="RG" type="${descricaocurta}"/>
+            <column name="DATANASCIMENTO" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20" author="andregustavo">
+        <createTable tableName="PESSOAFISICA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="NOME" type="${descricaolonga}"/>
+            <column name="CPF" type="${cpf}"/>
+            <column name="RG" type="${descricaocurta}"/>
+            <column name="DATANASCIMENTO" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="21" author="andregustavo">
+        <addPrimaryKey tableName="PESSOAFISICA_AUD" columnNames="ID, REV" constraintName="PK_PESSOAFISICA_AUD"/>
+    </changeSet>
+    <changeSet id="22" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="PESSOAFISICA_AUD" baseColumnNames="REV" constraintName="FK_PFREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="23" author="andregustavo"> 
+        <createTable tableName="PESSOAJURIDICA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOAJURIDICA"/>
+            </column>
+            <column name="NOMEFANTASIA" type="${descricaolonga}"/>
+            <column name="CNPJ" type="${cnpj}"/>
+            <column name="RAZAOSOCIAL" type="${descricaolonga}"/>
+            <column name="TIPOEMPRESA" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="24" author="andregustavo"> 
+        <createTable tableName="PESSOAJURIDICA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="NOMEFANTASIA" type="${descricaolonga}"/>
+            <column name="CNPJ" type="${cnpj}"/>
+            <column name="RAZAOSOCIAL" type="${descricaolonga}"/>
+            <column name="TIPOEMPRESA" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="25" author="andregustavo">
+        <addPrimaryKey tableName="PESSOAJURIDICA_AUD" columnNames="ID, REV" constraintName="PK_PESSOAJURIDICA_AUD"/>
+    </changeSet>
+    <changeSet id="26" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="PESSOAJURIDICA_AUD" baseColumnNames="REV" constraintName="FK_PJREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="27" author="andregustavo">
+        <createTable tableName="EMAIL">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMAIL"/>
+            </column>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="ENDERECOEMAIL" type="${descricaomedia}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="28" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="EMAIL" baseColumnNames="PESSOA_ID" constraintName="FK_PESSOAEMAIL" referencedTableName="PESSOA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="29" author="andregustavo">
+        <createTable tableName="EMAIL_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="ENDERECOEMAIL" type="${descricaomedia}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="30" author="andregustavo">
+        <addPrimaryKey tableName="EMAIL_AUD" columnNames="ID, REV" constraintName="PK_EMAIL_AUD"/>
+    </changeSet>
+    <changeSet id="31" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="EMAIL_AUD" baseColumnNames="REV" constraintName="FK_EMAILREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="32" author="andregustavo">
+        <createTable tableName="TELEFONE">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TELEFONE"/>
+            </column>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="NUMERO" type="${descricaocurta}"/>
+            <column name="TIPOTELEFONE" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="33" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="TELEFONE" baseColumnNames="PESSOA_ID" constraintName="FK_TELEFONEPESSOA" referencedTableName="PESSOA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="34" author="andregustavo">
+        <createTable tableName="TELEFONE_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="NUMERO" type="${descricaocurta}"/>
+            <column name="TIPOTELEFONE" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="35" author="andregustavo">
+        <addPrimaryKey tableName="TELEFONE_AUD" columnNames="ID, REV" constraintName="PK_TELEFONE_AUD"/>
+    </changeSet>
+    <changeSet id="36" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="TELEFONE_AUD" baseColumnNames="REV" constraintName="FK_TELREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID" onDelete="RESTRICT" initiallyDeferred="false" deferrable="false"/> 
+    </changeSet>
+    <changeSet id="37" author="andregustavo">
+        <createTable tableName="ENDERECOCORREIO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENDERECOCORREIO"/>
+            </column>
+            <column name="CEP" type="${descricaocurta}"/>
+            <column name="LOGRADOURO" type="${descricaolonga}"/>
+            <column name="COMPLEMENTO" type="${descricaolonga}"/>
+            <column name="BAIRRO" type="${descricaolonga}"/>
+            <column name="LOCALIDADE" type="${descricaolonga}"/>
+            <column name="UF" type="${descricaocurta}"/>
+            <column name="NUMERO" type="${descricaocurta}"/>
+            <column name="PRINCIPAL" type="${logico}"/>
+            <column name="TIPOENDERECO" type="${descricaomedia}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="38" author="andregustavo">
+        <createTable tableName="ENDERECOCORREIO_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="CEP" type="${descricaocurta}"/>
+            <column name="LOGRADOURO" type="${descricaolonga}"/>
+            <column name="COMPLEMENTO" type="${descricaolonga}"/>
+            <column name="BAIRRO" type="${descricaolonga}"/>
+            <column name="LOCALIDADE" type="${descricaolonga}"/>
+            <column name="UF" type="${descricaocurta}"/>
+            <column name="NUMERO" type="${descricaocurta}"/>
+            <column name="PRINCIPAL" type="${logico}"/>
+            <column name="TIPOENDERECO" type="${descricaomedia}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="39" author="andregustavo">
+        <addPrimaryKey tableName="ENDERECOCORREIO_AUD" columnNames="ID, REV" constraintName="PK_ENDERECOCORREIO_AUD"/>
+    </changeSet>
+    <changeSet id="40" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ENDERECOCORREIO_AUD" baseColumnNames="REV" constraintName="FK_ENDERCORREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="41" author="andregustavo">
+        <createTable tableName="ENDERECOPESSOA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENDERECOPESSOA"/>
+            </column>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="ENDERECOCORREIO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="42" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ENDERECOPESSOA" baseColumnNames="PESSOA_ID" constraintName="FK_ENDPESPES" referencedTableName="PESSOA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="43" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ENDERECOPESSOA" baseColumnNames="ENDERECOCORREIO_ID" constraintName="FK_ENDCORPES" referencedTableName="ENDERECOCORREIO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="44" author="andregustavo">
+        <createTable tableName="ENDERECOPESSOA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="ENDERECOCORREIO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="45" author="andregustavo">
+        <addPrimaryKey tableName="ENDERECOPESSOA_AUD" columnNames="ID, REV" constraintName="PK_ENDERECOPESSOA_AUD"/>
+    </changeSet>
+    <changeSet id="46" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ENDERECOPESSOA_AUD" baseColumnNames="REV" constraintName="FK_ENDERECOPESSOAREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="47" author="andregustavo">
+        <createTable tableName="ESTADO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ESTADO"/>
+            </column>
+            <column name="NOME" type="${descricaomedia}"/>
+            <column name="UF" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="48" author="andregustavo">
+        <createTable tableName="ESTADO_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="NOME" type="${descricaomedia}"/>
+            <column name="UF" type="${descricaocurta}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="49" author="andregustavo">
+        <addPrimaryKey tableName="ESTADO_AUD" columnNames="ID, REV" constraintName="PK_ESTADO_AUD"/>
+    </changeSet>
+    <changeSet id="50" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="ESTADO_AUD" baseColumnNames="REV" constraintName="FK_ESTADOREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="51" author="andregustavo">
+        <createTable tableName="CIDADE">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CIDADE"/>
+            </column>
+            <column name="NOME" type="${descricaocurta}"/>
+            <column name="ESTADO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="52" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="CIDADE" baseColumnNames="ESTADO_ID" constraintName="FK_CIDADEESTADO" referencedTableName="ESTADO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="53" author="andregustavo">
+        <createTable tableName="CIDADE_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="NOME" type="${descricaocurta}"/>
+            <column name="ESTADO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="54" author="andregustavo">
+        <addPrimaryKey tableName="CIDADE_AUD" columnNames="ID, REV" constraintName="PK_CIDADE_AUD"/>
+    </changeSet>
+    <changeSet id="55" author="andregustavo">
+        <addForeignKeyConstraint baseTableName="CIDADE_AUD" baseColumnNames="REV" constraintName="FK_CIDADEREV_AUD" referencedTableName="REVISAOAUDITORIA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet author="peixe" id="1">
+        <createTable tableName="GRUPO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="GRUPO_PKEY"/>
+            </column>
+            <column name="DESCRICAO" type="${descricaolonga}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="peixe" id="2">
+        <createTable tableName="GRUPORECURSO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="GRUPORECURSO_PKEY"/>
+            </column>
+            <column name="RECURSOSISTEMA" type="${descricaolonga}"/>
+            <column name="GRUPO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="peixe" id="3">
+        <createTable tableName="GRUPOSUSUARIO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="GRUPOSUSUARIO_PKEY"/>
+            </column>
+            <column name="GRUPO_ID" type="${numero}"/>
+            <column name="USUARIO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="peixe" id="4">
+        <createTable tableName="USUARIO">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="USUARIO_PKEY"/>
+            </column>
+            <column name="LOGIN" type="${descricaolonga}"/>
+            <column name="SENHA" type="${descricaolonga}"/>
+            <column name="SALT" type="${descricaolonga}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="peixe" id="5">
+        <addForeignKeyConstraint baseColumnNames="GRUPO_ID" baseTableName="GRUPORECURSO" constraintName="FK_GRUPORECURSO_GRU" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="GRUPO"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="peixe" id="6">
+        <addForeignKeyConstraint baseColumnNames="GRUPO_ID" baseTableName="GRUPOSUSUARIO" constraintName="FK_GRUPOUSUARIO_GRU" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="GRUPO"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="peixe" id="7">
+        <addForeignKeyConstraint baseColumnNames="USUARIO_ID" baseTableName="GRUPOSUSUARIO" constraintName="FK_GRUPOUSARIO_USU" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="USUARIO" referencesUniqueColumn="false"/>
+    </changeSet>  
+    <changeSet id="56" author="andregustavo">
+        <addColumn tableName="ARQUIVO">
+            <column name="TIPOARQUIVO" type="${descricaomedia}"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="57" author="andregustavo">
+        <addColumn tableName="ARQUIVO_AUD">
+            <column name="TIPOARQUIVO" type="${descricaomedia}"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="gustavo">
+        <createTable tableName="PARAMETROSPROCESSO">
+            <column name="INICIOVIGENCIA" type="${data}"/>
+            <column name="FINALVIGENCIA" type="${data}"/>
+            <column name="DESCRICAO" type="${descricaomedia}"/>
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PARAMETROSPROCESSO" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="gustavo">
+        <createTable tableName="PARAMETROSPROCESSO_AUD">
+            <column name="INICIOVIGENCIA" type="${data}"/>
+            <column name="FINALVIGENCIA" type="${data}"/>
+            <column name="DESCRICAO" type="${descricaomedia}"/>
+            <column name="ID" type="${numero}"/>
+            <column name="REV" type="${numero}"/>
+            <column name="REVTYPE" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="gustavo">
+        <addPrimaryKey tableName="PARAMETROSPROCESSO_AUD" columnNames="ID, REV"/>
+    </changeSet>
+    <changeSet id="5" author="gustavo">
+        <createTable tableName="PROCESSO">
+            <column name="ID" type="${numero}"/>
+            <column name="NUMERO" type="${numero}"/>
+            <column name="INICIO" type="${data}"/>
+            <column name="RECALMACAO" type="${texto}"/>
+            <column name="PARAMETRO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="gustavo">
+        <createTable tableName="PROCESSO_AUD">
+            <column name="ID" type="${numero}"/>
+            <column name="REV" type="${numero}"/>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="NUMERO" type="${numero}"/>
+            <column name="INICIO" type="${data}"/>
+            <column name="RECALMACAO" type="${texto}"/>
+            <column name="PARAMETRO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="gustavo">
+        <addPrimaryKey tableName="PROCESSO" columnNames="ID" constraintName="PK_PROCESSO"/>
+    </changeSet>
+    <changeSet id="8" author="gustavo">
+        <addPrimaryKey tableName="PROCESSO_AUD" columnNames="ID, REV" constraintName="PK_PROCESSO_AUD"/>
+    </changeSet>
+    <changeSet id="9" author="gustavo">
+        <addForeignKeyConstraint baseTableName="PROCESSO" baseColumnNames="PARAMETRO_ID" constraintName="FK_PROCESSO_PARAMETRO" referencedTableName="PARAMETROSPROCESSO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="10" author="gustavo">
+        <createTable tableName="RECLAMANTE">
+            <column name="ID" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="11" author="gustavo">
+        <createTable tableName="RECLAMANTE_AUD">
+            <column name="ID" type="${numero}"/>
+            <column name="REV" type="${numero}"/>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12" author="gustavo">
+        <addPrimaryKey tableName="RECLAMANTE" columnNames="ID" constraintName="PK_RECLAMANTE"/>
+    </changeSet>
+    <changeSet id="13" author="gustavo">
+        <addPrimaryKey tableName="RECLAMANTE_AUD" columnNames="ID, REV" constraintName="PK_RECLAMANTE_AUD"/>
+    </changeSet>
+    <changeSet id="14" author="gustavo">
+        <addForeignKeyConstraint baseTableName="RECLAMANTE" baseColumnNames="PESSOA_ID" constraintName="FK_RECLAMANTE_PESSOA" referencedTableName="PESSOA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="15" author="gustavo">
+        <addForeignKeyConstraint baseTableName="RECLAMANTE" baseColumnNames="PROCESSO_ID" constraintName="FK_RECLAMANTE_PROCESSO" referencedTableName="PROCESSO" referencedColumnNames="ID"/>
+    </changeSet>    
+    <changeSet id="16" author="gustavo">
+        <createTable tableName="RECLAMADO">
+            <column name="ID" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="17" author="gustavo">
+        <createTable tableName="RECLAMADO_AUD">
+            <column name="ID" type="${numero}"/>
+            <column name="REV" type="${numero}"/>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PESSOA_ID" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="18" author="gustavo">
+        <addPrimaryKey tableName="RECLAMADO" columnNames="ID" constraintName="PK_RECLAMADO"/>
+    </changeSet>
+    <changeSet id="19" author="gustavo">
+        <addPrimaryKey tableName="RECLAMADO_AUD" columnNames="ID, REV" constraintName="PK_RECLAMADO_AUD"/>
+    </changeSet>
+    <changeSet id="20" author="gustavo">
+        <addForeignKeyConstraint baseTableName="RECLAMADO" baseColumnNames="PESSOA_ID" constraintName="FK_RECLAMADO_PESSOA" referencedTableName="PESSOA" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="21" author="gustavo">
+        <addForeignKeyConstraint baseTableName="RECLAMADO" baseColumnNames="PROCESSO_ID" constraintName="FK_RECLAMADO_PROCESSO" referencedTableName="PROCESSO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="22" author="gustavo">
+        <createTable tableName="TRAMITE">
+            <column name="ID" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+            <column name="PRAZO" type="${numero}"/>
+            <column name="OBSERVACAO" type="${descricaolonga}"/>
+            <column name="TIPOTRAMITE" type="${descricaomedia}"/>
+            <column name="INICIO" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="23" author="gustavo">
+        <createTable tableName="TRAMITE_AUD">
+            <column name="ID" type="${numero}"/>
+            <column name="REV" type="${numero}"/>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="PROCESSO_ID" type="${numero}"/>
+            <column name="PRAZO" type="${numero}"/>
+            <column name="OBSERVACAO" type="${descricaolonga}"/>
+            <column name="TIPOTRAMITE" type="${descricaomedia}"/>
+            <column name="INICIO" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="24" author="gustavo">
+        <addPrimaryKey tableName="TRAMITE" columnNames="ID" constraintName="PK_TRAMITE"/>
+    </changeSet>
+    <changeSet id="25" author="gustavo">
+        <addForeignKeyConstraint baseTableName="TRAMITE" baseColumnNames="PROCESSO_ID" constraintName="FK_TRAMITE_PROCESSO" referencedTableName="PROCESSO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="26" author="gustavo">
+        <addColumn tableName="PARAMETROSPROCESSO">
+            <column name="CODIGO" type="${descricaomedia}"/>
+        </addColumn>
+        <addColumn tableName="PARAMETROSPROCESSO_AUD">
+            <column name="CODIGO" type="${descricaomedia}"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="27" author="gustavo">
+        <renameColumn tableName="PROCESSO" oldColumnName="RECALMACAO" newColumnName="RECLAMACAO"/>
+        <renameColumn tableName="PROCESSO_AUD" oldColumnName="RECALMACAO" newColumnName="RECLAMACAO"/>
+    </changeSet>
+    <changeSet id="58" author="andregustavo">
+        <dropTable tableName="EMAIL"/>
+    </changeSet>
+    <changeSet id="59" author="andregustavo">
+        <dropTable tableName="EMAIL_AUD"/>
+    </changeSet>
+    <changeSet author="peixe" id="11">
+        <createTable tableName="RECUPERASENHA">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="RECUPERASENHA_PKEY"/>
+            </column>
+            <column name="USUARIO_ID" type="${numero}"/>
+            <column name="CODIGO" type="${descricaolonga}"/>
+            <column name="VALIDADE" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="peixe" id="12">
+        <createTable tableName="RECUPERASENHA_AUD">
+            <column name="ID" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="${numero}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="${numero}"/>
+            <column name="USUARIO_ID" type="${numero}"/>
+            <column name="CODIGO" type="${descricaolonga}"/>
+            <column name="VALIDADE" type="${data}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="13" author="peixe">
+        <addPrimaryKey tableName="RECUPERASENHA_AUD" columnNames="ID, REV" constraintName="PK_RECUPERASENHA_AUD"/>
+    </changeSet>
+    <changeSet id="14" author="peixe">
+        <addForeignKeyConstraint baseTableName="RECUPERASENHA" baseColumnNames="USUARIO_ID" constraintName="FK_RECUPERASENHA_USUAR" referencedTableName="USUARIO" referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="15" author="peixe">
+        <addColumn tableName="USUARIO">
+            <column name="PESSOA_ID" type="${numero}"/>
+        </addColumn>
+    </changeSet>
+<!--    <changeSet id="16" author="peixe">
+        <addColumn tableName="USUARIO_AUD">
+            <column name="PESSOA_ID" type="${numero}" />
+        </addColumn>
+    </changeSet>-->
+    <changeSet id="17" author="peixe">
+        <addForeignKeyConstraint baseTableName="USUARIO" baseColumnNames="PESSOA_ID" constraintName="FK_PESSOA_USUARIO" referencedTableName="PESSOA" referencedColumnNames="ID"/>
+    </changeSet>
+</databaseChangeLog>
