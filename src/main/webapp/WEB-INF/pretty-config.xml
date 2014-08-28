@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.0" 
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.0
-                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.0.xsd">
+
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
    <!-- Begin Example RewriteRules 
    
@@ -14,8 +15,12 @@
    
     <url-mapping>
         <pattern value="/home" /> 
-        <view-id value="/faces/index.xhtml" />
-    </url-mapping>      
+        <view-id value="/faces/interno/index.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/" />
+        <view-id value="/faces/externo/index.xhtml" />
+    </url-mapping>
     <url-mapping>
         <pattern value="/login" /> 
         <view-id value="/faces/login.xhtml" />

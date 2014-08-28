@@ -58,14 +58,15 @@
 //});
 
 //
-//function atribuirStyles(elemento, styles) {
-//    for (var s in styles) {
-//        elemento.style[s] = styles[s];
-//    }
-//}
+function atribuirStyles(elemento, styles) {
+    for (var s in styles) {
+        elemento.style[s] = styles[s];
+    }
+}
 
 function redimensionarDialog(id) {
-    //    window.scrollTo(0, 0);    
+    //    window.scrollTo(0, 0);
+    console.log(id);
     var info = document.getElementById(id);
     var div = document.getElementById('div-info-mensagens');
     var style = info.style;

@@ -18,7 +18,7 @@
     <tx:annotation-driven/>
         
     <bean id="em" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="eproconPU" />
+        <property name="persistenceUnitName" value="dojoPU" />
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="em"/>
@@ -28,13 +28,13 @@
         <property name="scopes">
             <map>
                 <entry key="view">
-                    <bean class="br.com.techcode.escopos.ViewScope"/>
+                    <bean class="br.com.bycodesign.escopos.ViewScope"/>
                 </entry>
             </map>
         </property>
     </bean>
    
-    <context:component-scan base-package="br.com.techcode" />
+    <context:component-scan base-package="br.com.bycodesign" />
         
 <!--    <security:http auto-config="true">        
         <security:intercept-url pattern="/faces/javax.faces.resource/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
@@ -62,7 +62,7 @@
     </security:authentication-manager>-->
     
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
-        <property name="jndiName" value="java:comp/env/eproconJNDI" />        
+        <property name="jndiName" value="java:comp/env/dojoJNDI" />
     </bean>
     
 </beans>

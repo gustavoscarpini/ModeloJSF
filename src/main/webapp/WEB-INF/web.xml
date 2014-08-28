@@ -1,30 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <!-- Liquibse -->
-    <context-param>
-        <param-name>liquibase.changelog</param-name>
-        <param-value>br/com/techcode/changelog/changelog-master.xml</param-value>
-    </context-param>
- 
-    <context-param>
-        <param-name>liquibase.datasource</param-name>
-        <param-value>java:comp/env/eproconJNDI</param-value>
-    </context-param>
- 
-    <context-param>
-        <param-name>liquibase.onerror.fail</param-name>
-        <param-value>true</param-value>
-    </context-param>
- 
-    <context-param>
-        <param-name>liquibase.contexts</param-name>
-        <param-value>production</param-value>
-    </context-param>
-
-    <listener>
-        <listener-class>liquibase.integration.servlet.LiquibaseServletListener</listener-class>
-    </listener>
-    <!-- Spring -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -52,25 +27,13 @@
         <dispatcher>FORWARD</dispatcher>-->
     </filter-mapping>
     <!-- PRETTY FACES -->
-    <filter>
-        <filter-name>Pretty Filter</filter-name>
-        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Pretty Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-        <dispatcher>ASYNC</dispatcher>
-    </filter-mapping>
     <context-param>
         <param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>    
     <context-param>
         <param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
-        <param-value>br.com.techcode</param-value>
+        <param-value>br.com.bycodesign</param-value>
     </context-param>
     <!-- PRIMEFACES -->
     <context-param>
@@ -110,17 +73,17 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/externo/index.xhtml</welcome-file>
     </welcome-file-list>
     <persistence-unit-ref>
-        <persistence-unit-ref-name>eproconJNDI</persistence-unit-ref-name>
-        <persistence-unit-name>eproconPU</persistence-unit-name>
+        <persistence-unit-ref-name>dojoJNDI</persistence-unit-ref-name>
+        <persistence-unit-name>dojoPU</persistence-unit-name>
     </persistence-unit-ref> 
     <persistence-context-ref>
         <persistence-context-ref-name>
-            br.com.techcode.seguranca.service.AbstractCadastroService/entityManager
+            br.com.bycodesign.seguranca.service.AbstractCadastroService/entityManager
         </persistence-context-ref-name>
-        <persistence-unit-name>eproconJNDI</persistence-unit-name>
+        <persistence-unit-name>dojoJNDI</persistence-unit-name>
     </persistence-context-ref>
     <error-page>
         <error-code>403</error-code>

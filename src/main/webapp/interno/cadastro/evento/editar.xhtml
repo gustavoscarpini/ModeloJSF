@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fc="http://java.sun.com/jsf/composite/components"
+      xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="//template.xhtml">
+    <ui:define name="body">
+        <h:form id="Formulario">
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="Novo Evento" rendered="#{eventoControlador.operacao eq 'NOVO'}"/>
+                    <h:outputText value="Editar Evento #{eventoControlador.selecionado}"
+                                  rendered="#{eventoControlador.operacao eq 'EDITAR'}"/>
+                </f:facet>
+                <h:panelGrid columns="2">
+                    <fc:labelObrigatorio para="nome" value="Nome:"/>
+                    <p:inputText id="nome"
+                                 value="#{eventoControlador.selecionado.nome}"
+                                 title="Digite o nome do estado."/>
+                    <fc:labelObrigatorio para="data" value="Data:"/>
+                    <p:calendar id="data" pattern="dd/MM/yyy"
+                                value="#{eventoControlador.selecionado.dataEvento}"
+                                title="Digite a Data do Evento."/>
+                    <fc:labelObrigatorio para="vagas" value="Vagas:"/>
+                    <p:inputText id="vagas"
+                                 value="#{eventoControlador.selecionado.vagas}"
+                                 title="Digite o número de vagas disponíveis."/>
+                </h:panelGrid>
+            </p:panel>
+
+            <fc:rodapePadrao controlador="#{eventoControlador}" id="rodapePadrao"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
+

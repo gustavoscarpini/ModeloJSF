@@ -17,10 +17,10 @@
     </application> 
     
     <lifecycle>
-        <phase-listener>br.com.techcode.listeners.LogSistemaListener</phase-listener>
+        <phase-listener>br.com.bycodesign.listeners.LogSistemaListener</phase-listener>
     </lifecycle> 
 <!--    <application>
-        <navigation-handler>br.com.techcode.seguranca.ManipuladorDeNavegacao</navigation-handler>
+        <navigation-handler>ManipuladorDeNavegacao</navigation-handler>
     </application>-->
      
 </faces-config>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/eprocon">
-  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="eproconJNDI"
-            password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/eProcon" username="postgres"/>
+<Context antiJARLocking="true" path="/dojo">
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="dojoJNDI"
+            password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/dojo" username="postgres"/>
 </Context>
