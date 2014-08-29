@@ -2,6 +2,7 @@ package br.com.bycodesign.negocios;
 
 import br.com.bycodesign.entidades.Estado;
 import br.com.bycodesign.entidades.Evento;
+import br.com.bycodesign.entidades.Participante;
 import br.com.bycodesign.supers.SuperFacade;
 import br.com.bycodesign.util.Persistencia;
 import org.springframework.stereotype.Repository;
@@ -34,4 +35,12 @@ public class EventoFacade extends SuperFacade<Evento> {
         Query q = getEntityManager().createQuery(hql);
         return q.getResultList();
     }
+
+    public List<Participante> getParticipantes(Evento e){
+        String hql = "from Participante e where e.evento = :evento order by e.nome asc";
+        Query q = getEntityManager().createQuery(hql);
+        q.setParameter("evento", e);
+        return q.getResultList();
+    }
+
 }

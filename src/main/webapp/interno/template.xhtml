@@ -18,37 +18,10 @@
         <h:outputScript library="js" name="function-eprocon.js"/>
         <h:outputScript library="js" name="function-jquery.js"/>
     </h:head>
-
-    <script type="text/javascript">
-        function atribuirStyles(elemento, styles) {
-            for (var s in styles) {
-                elemento.style[s] = styles[s];
-            }
-        }
-
-        function redimensionarDialog(id) {
-            window.scrollTo(0, 0);
-            var info = document.getElementById(id);
-            var style = info.style;
-            var wTotal = window.innerWidth;
-            var hTotal = window.innerHeight;
-            var diferencaW = wTotal * 0.2;
-            var diferencaH = hTotal * 0.2;
-            style.left = diferencaW / 2 + 'px';
-            ;
-            style.width = ''.concat(wTotal -= diferencaW, 'px');
-            style.height = ''.concat(hTotal -= diferencaH, 'px');
-            style.top = diferencaH / 2 + 'px';
-            atribuirStyles(info, style);
-        }
-
-    </script>
-
     <h:body>
         <div>
             <div id="cabecalho">
                 <an:cabecalho/>
-
                 <div>
                     <div id="topo-logo">
                         <p:graphicImage value="/resources/images/general/macbook.png"/>
@@ -104,8 +77,10 @@
                         </h:dataTable>
                     </div>
                     <div style="text-align: center">
-                        <p:commandButton value="Continuar" actionListener="#{sistemaControlador.limparTodasMensagens()}"
-                                         update=":idMesagensDialog" immediate="true" styleClass="bnt"/>
+                        <p:commandButton value="Ok"
+                                         icon="ui-icon-check"
+                                         actionListener="#{sistemaControlador.limparTodasMensagens()}"
+                                         update=":idMesagensDialog" immediate="true"/>
                     </div>
                 </h:form>
             </p:dialog>

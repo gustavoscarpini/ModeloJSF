@@ -6,44 +6,36 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-
 <!-- INTERFACE -->
 <cc:interface>
 </cc:interface>
-
 <!-- IMPLEMENTATION -->
 <cc:implementation>
     <h:form>
         <p:menubar styleClass="barraPrincipal" autoDisplay="false">
             <p:menuitem icon="ui-icon-home" styleClass="mrig10"
-                        actionListener="#{sistemaControlador.navegarPara('/home')}"/>
-            <p:submenu label="Cadastros Gerais" styleClass="mrig10">
-
-                <p:menuitem value="Evento"
+                        actionListener="#{sistemaControlador.navegarPara('/interno/home/')}"/>
+            <p:submenu label="Eventos" styleClass="mrig10">
+                <p:menuitem value="Incluir"
                             immediate="true"
                             actionListener="#{sistemaControlador.navegarPara('/cadastro/evento/novo/')}"
                             title="Clique para adicionar um novo evento."/>
-
-                <p:menuitem value="Listar Eventos"
+                <p:menuitem value="Listar"
                             immediate="true"
                             actionListener="#{sistemaControlador.navegarPara('/cadastro/evento/listar/')}"
                             title="Clique para visualizar os eventos cadastrados"/>
                 <p:separator/>
-
             </p:submenu>
-            <p:submenu label="Gerenciamento de Usuários" styleClass="mrig10">
-
+            <p:submenu label="Usuários" styleClass="mrig10">
                 <p:menuitem value="Incluir"
                             immediate="true"
                             actionListener="#{sistemaControlador.navegarPara('/admin/usuario/novo/')}"
                             title="Clique para adicionar um novo usuário."/>
-
                 <p:menuitem value="Listar"
                             immediate="true"
                             actionListener="#{sistemaControlador.navegarPara('/admin/usuario/listar/')}"
                             title="Clique para visualizar os usuários cadastrados"/>
             </p:submenu>
-
             <f:facet name="options">
                 <h:panelGrid columns="4">
                     <h:commandLink>

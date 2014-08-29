@@ -27,7 +27,8 @@
 
     <http auto-config="true" authentication-manager-ref="authenticationManager"
           access-decision-manager-ref="accessDecisionManager">
-        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <intercept-url pattern="/interno/**" access="ROLE_USER"/>
+        <intercept-url pattern="/faces/interno/**" access="ROLE_USER"/>
         <form-login login-processing-url="/j_spring_security_check" login-page="/faces/login.xhtml"
                     authentication-failure-url="/faces/login.xhtml?login_error"/>
         <logout logout-url="/logout" logout-success-url="/faces/login.xhtml"/>

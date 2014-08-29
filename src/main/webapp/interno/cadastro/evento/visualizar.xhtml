@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <ui:composition template="//template.xhtml">
+    <ui:composition template="/interno/template.xhtml">
         <ui:define name="body">
             <p:panel header="Estado #{eventoControlador.selecionado}">
                 <h:panelGrid columns="2"
@@ -16,6 +16,18 @@
                         <h:outputText value="#{eventoControlador.obterConteudoCampo(campo)}" escape="false"/>
                     </c:forEach>
                 </h:panelGrid>
+
+                <p:panel header="Inscritos">
+                    <div class="alinhamentoTopoCentralizado">
+                        <p:commandButton value="Carregar Participantes"
+                                         actionListener="#{eventoControlador.carregaParticipantes()}"
+                                         update="participantes"/>
+                    </div>
+                    <p:dataList value="#{eventoControlador.participantes}" id="participantes"
+                                var="participante" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+                        <h:outputText value="#{participante.nome}, #{participante.nascimento}" style="display:inline-block"/>
+                    </p:dataList>
+                </p:panel>
             </p:panel>
 
             <h:form id="Formulario">

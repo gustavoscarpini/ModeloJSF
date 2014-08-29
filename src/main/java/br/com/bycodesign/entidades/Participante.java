@@ -7,6 +7,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Audited
@@ -20,6 +21,9 @@ public class Participante implements Serializable, Cadastravel {
     private Long id;
     @CRUD(visualizavel = true, label = "Nome")
     private String nome;
+    @Temporal(TemporalType.DATE)
+    private Date nascimento;
+
     @CRUD(visualizavel = true, label = "Evento")
     @ManyToOne
     private Evento evento;
@@ -46,6 +50,14 @@ public class Participante implements Serializable, Cadastravel {
 
     public void setEvento(Evento evento) {
         this.evento = evento;
+    }
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
     @Override
@@ -86,4 +98,5 @@ public class Participante implements Serializable, Cadastravel {
         }
         return validacao;
     }
+
 }

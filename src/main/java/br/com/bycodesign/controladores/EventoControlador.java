@@ -6,6 +6,7 @@ package br.com.bycodesign.controladores;
 
 import br.com.bycodesign.entidades.Estado;
 import br.com.bycodesign.entidades.Evento;
+import br.com.bycodesign.entidades.Participante;
 import br.com.bycodesign.negocios.EstadoFacade;
 import br.com.bycodesign.negocios.EventoFacade;
 import br.com.bycodesign.supers.SuperControlador;
@@ -39,9 +40,14 @@ public class EventoControlador extends SuperControlador<Evento> implements Seria
 
     @Autowired
     private EventoFacade eventoFacade;
+    private List<Participante> participantes;
 
     public EventoControlador() {
         super(Evento.class);
+    }
+
+    public List<Participante> getParticipantes() {
+        return participantes;
     }
 
     @Override
@@ -71,6 +77,10 @@ public class EventoControlador extends SuperControlador<Evento> implements Seria
     @Override
     public void visualizar() {
         super.visualizar();
+    }
+
+    public void carregaParticipantes() {
+        participantes = eventoFacade.getParticipantes(selecionado);
     }
 
 }

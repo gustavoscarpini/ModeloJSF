@@ -14,15 +14,11 @@
     -->
    
     <url-mapping>
-        <pattern value="/home" /> 
+        <pattern value="/interno/home/" />
         <view-id value="/faces/interno/index.xhtml" />
     </url-mapping>
     <url-mapping>
-        <pattern value="/" />
-        <view-id value="/faces/externo/index.xhtml" />
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/login" /> 
+        <pattern value="/login/" />
         <view-id value="/faces/login.xhtml" />
     </url-mapping>
     <url-mapping>
@@ -34,7 +30,9 @@
         <view-id value="/faces/alterasenha.xhtml" />
     </url-mapping>
     <url-mapping>
-        <pattern value="/login-error" /> 
+        <pattern value="/login-error/" />
         <view-id value="/faces/login-error.xhtml" />
-    </url-mapping>  
+    </url-mapping>
+
+    <rewrite processor="br.com.bycodesign.seguranca.ModificadorURL"/>
 </pretty-config>

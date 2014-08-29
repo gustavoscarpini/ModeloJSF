@@ -4,11 +4,13 @@ import br.com.bycodesign.controladores.SistemaControlador;
 import br.com.bycodesign.util.Cadastravel;
 import br.com.bycodesign.util.FacesUtil;
 import br.com.bycodesign.util.Persistencia;
+import br.com.bycodesign.util.Util;
 import br.com.bycodesign.util.anotacoes.Operacoes;
 import br.com.bycodesign.util.excecoes.ValidacaoException;
 import br.com.bycodesign.util.anotacoes.CRUD;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -219,7 +222,7 @@ public abstract class SuperControlador<T> {
     public String montaCondicao(Field f) {
         Class tipo = f.getType();
         if (tipo.equals(String.class)) {
-            return "lower(" + ALIAS + "." + f.getName()+ ") like '%" + atributosPesquisaveis.get(f).toLowerCase() + "%'";
+            return "lower(" + ALIAS + "." + f.getName() + ") like '%" + atributosPesquisaveis.get(f).toLowerCase() + "%'";
         }
         if (tipo.equals(Long.class)) {
             return " cast(" + ALIAS + "." + f.getName() + " as text) like '%" + atributosPesquisaveis.get(f) + "%'";
@@ -227,11 +230,12 @@ public abstract class SuperControlador<T> {
 
         return "";
     }
-    
-    public String getNomeEntidade(){
-      if(classe.isAnnotationPresent(CRUD.class)){
-         return classe.getAnnotation(CRUD.class).label();
-      }
-      return classe.getSimpleName();
+
+    public String getNomeEntidade() {
+        if (classe.isAnnotationPresent(CRUD.class)) {
+            return classe.getAnnotation(CRUD.class).label();
+        }
+        return classe.getSimpleName();
     }
+
 }
