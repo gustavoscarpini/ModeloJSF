@@ -25,6 +25,10 @@
         <level value="ERROR"/>
     </logger>
 
+    <logger name="org.ocpsoft">
+        <level value="INFO"/>
+    </logger>
+
     <logger name="console" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
