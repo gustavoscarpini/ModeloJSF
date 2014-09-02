@@ -1,5 +1,8 @@
 package br.com.bycodesign.entidades;
 
+import br.com.bycodesign.enums.CategoriaIdade;
+import br.com.bycodesign.enums.CategoriaPeso;
+import br.com.bycodesign.enums.Graduacao;
 import br.com.bycodesign.util.Cadastravel;
 import br.com.bycodesign.util.Validacao;
 import br.com.bycodesign.util.anotacoes.CRUD;
@@ -11,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Audited
-@CRUD(label="Estado")
+@CRUD(label="Participante")
 public class Participante implements Serializable, Cadastravel {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +30,13 @@ public class Participante implements Serializable, Cadastravel {
     @CRUD(visualizavel = true, label = "Evento")
     @ManyToOne
     private Evento evento;
+
+    @Enumerated(EnumType.STRING)
+    private CategoriaPeso categoriaPeso;
+    @Enumerated(EnumType.STRING)
+    private Graduacao graduacao;
+    @Enumerated(EnumType.STRING)
+    private CategoriaIdade categoriaIdade;
 
     public Long getId() {
         return id;
@@ -78,6 +88,30 @@ public class Participante implements Serializable, Cadastravel {
             return false;
         }
         return true;
+    }
+
+    public CategoriaPeso getCategoriaPeso() {
+        return categoriaPeso;
+    }
+
+    public void setCategoriaPeso(CategoriaPeso categoriaPeso) {
+        this.categoriaPeso = categoriaPeso;
+    }
+
+    public Graduacao getGraduacao() {
+        return graduacao;
+    }
+
+    public void setGraduacao(Graduacao graduacao) {
+        this.graduacao = graduacao;
+    }
+
+    public CategoriaIdade getCategoriaIdade() {
+        return categoriaIdade;
+    }
+
+    public void setCategoriaIdade(CategoriaIdade categoriaIdade) {
+        this.categoriaIdade = categoriaIdade;
     }
 
     @Override
