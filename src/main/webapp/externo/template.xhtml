@@ -12,17 +12,21 @@
 <h:head>
     <title>Dojo</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <h:outputStylesheet library="css" name="layout.css"/>
-    <h:outputStylesheet library="css" name="bootstrap.css"/>
-    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-    <h:outputStylesheet library="css" name="bootstrap-responsive.css"/>
-    <h:outputScript library="js" name="locales-calendar-primefaces.js"/>
-    <h:outputScript library="js" name="function-eprocon.js"/>
-    <h:outputScript library="js" name="function-jquery.js"/>
-    <h:outputScript library="js" name="jquery-1.11.0.js"/>
-    <h:outputScript library="js" name="bootstrap.js"/>
-    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <!-- Bootstrap Core CSS -->
+    <link href="#{facesContext.externalContext.requestContextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="#{facesContext.externalContext.requestContextPath}/resources/css/4-col-portfolio.css" rel="stylesheet"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </h:head>
 
 
@@ -38,19 +42,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="navbar-brand" href="#">algumaCoisaJJ</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">About</a>
+                    <a href="#">Sobre</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="#">Eventos</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Contato</a>
+                </li>
+                <li>
+                    <a href="#{facesContext.externalContext.requestContextPath}/interno/home/">Login</a>
                 </li>
             </ul>
         </div>
@@ -134,4 +141,10 @@
 </p:dialog>
 </h:body>
 </f:view>
+
+<!-- jQuery Version 1.11.0 -->
+<script src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery-1.11.0.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="#{facesContext.externalContext.requestContextPath}/resources/js/bootstrap.min.js"></script>
 </html>
