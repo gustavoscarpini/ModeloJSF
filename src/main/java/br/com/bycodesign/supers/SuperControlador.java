@@ -238,4 +238,13 @@ public abstract class SuperControlador<T> {
         return classe.getSimpleName();
     }
 
+    public void vaiParaLista() {
+        String listar = ((Cadastravel) selecionado).getCaminhoPadrao() + "listar/";
+        FacesUtil.redirecionamentoInterno(listar);
+    }
+
+    public void vaiParaNovo() {
+        String listar = ((Cadastravel) selecionado).getCaminhoPadrao() + "novo/";
+        FacesUtil.redirecionamentoInterno(listar);
+    }
 }

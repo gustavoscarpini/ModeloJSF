@@ -16,23 +16,90 @@
                     <h:outputText value="Editar Evento #{eventoControlador.selecionado}"
                                   rendered="#{eventoControlador.operacao eq 'EDITAR'}"/>
                 </f:facet>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" style="">
                     <fc:labelObrigatorio para="nome" value="Nome:"/>
-                    <p:inputText id="nome"
+                    <p:inputText id="nome" size="70"
                                  value="#{eventoControlador.selecionado.nome}"
                                  title="Digite o nome do estado."/>
-                    <fc:labelObrigatorio para="data" value="Data:"/>
-                    <p:calendar id="data" pattern="dd/MM/yyy"
-                                value="#{eventoControlador.selecionado.dataEvento}"
-                                title="Digite a Data do Evento."/>
+                    <fc:labelObrigatorio para="inicioInscricoes" value="Data de Início das Inscrições:"/>
+                    <p:calendar id="inicioInscricoes" pattern="dd/MM/yyy" size="10"
+                                value="#{eventoControlador.selecionado.inicioInscricoes}"
+                                title="Digite adata para o início das incriçoes do Evento."/>
+                    <fc:labelObrigatorio para="finalInscricoes" value="Data para o Fim das Inscrições:"/>
+                    <p:calendar id="finalInscricoes" pattern="dd/MM/yyy"  size="10"
+                                value="#{eventoControlador.selecionado.finalInscricoes}"
+                                title="Digite adata para o fim das incriçoes do Evento."/>
                     <fc:labelObrigatorio para="vagas" value="Vagas:"/>
-                    <p:inputText id="vagas"
+                    <p:inputText id="vagas"  size="10"
                                  value="#{eventoControlador.selecionado.vagas}"
                                  title="Digite o número de vagas disponíveis."/>
+                    <fc:labelObrigatorio para="vagas" value="Data/Hora:"/>
+                    <h:panelGroup id="grupo-datas">
+
+                        <table>
+                            <ui:repeat value="#{eventoControlador.selecionado.datas}" var="data">
+                                <tr>
+                                    <td>
+                                        <p:inputText readonly="true"  size="10"
+                                                     value="#{data.dia}"
+                                                     title="Dia que irá ocorrer o evento">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </p:inputText>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="De:"/>
+                                    </td>
+                                    <td>
+                                        <p:inputText readonly="true"  size="10"
+                                                     value="#{data.horaInicio}"
+                                                     title="Dia que irá ocorrer o evento">
+                                            <f:convertDateTime pattern="HH:mm"/>
+                                        </p:inputText>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="Até:"/>
+                                    </td>
+                                    <td>
+                                        <p:inputText readonly="true" size="10"
+                                                     value="#{data.horaFim}"
+                                                     title="Dia que irá ocorrer o evento">
+                                            <f:convertDateTime pattern="HH:mm"/>
+                                        </p:inputText>
+                                    </td>
+                                    <td>
+                                        <p:commandButton icon="ui-icon-cancel"
+                                                         onstart="aguarde.show()"
+                                                         oncomplete="aguarde.hide()"
+                                                         actionListener="#{eventoControlador.removeDataEvento(data)}"
+                                                         update="@form" process="@form"/>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                        <h:panelGrid columns="6">
+                            <p:calendar id="dia" pattern="dd/MM/yyy"  size="10"
+                                        value="#{eventoControlador.dataEvento.dia}"
+                                        title="Selecione ou digite o dia que irá ocorrer o evento"/>
+                            <h:outputLabel for="inicio" value="De:"/>
+                            <p:calendar id="inicio" value="#{eventoControlador.dataEvento.horaInicio}" pattern="HH:mm"  size="10"
+                                        timeOnly="true"/>
+                            <h:outputLabel for="fim" value="Até:"/>
+                            <p:calendar id="fim" value="#{eventoControlador.dataEvento.horaFim}" pattern="HH:mm"  size="10"
+                                        timeOnly="true"/>
+                            <p:commandButton icon="ui-icon-plus"
+                                             onstart="aguarde.show()"
+                                             oncomplete="aguarde.hide()"
+                                             actionListener="#{eventoControlador.addDataEvento}"
+                                             update="@form" process="@form"/>
+                        </h:panelGrid>
+
+                    </h:panelGroup>
+
                 </h:panelGrid>
+
             </p:panel>
             <br/>
-            
+
 
             <fc:rodapePadrao controlador="#{eventoControlador}" id="rodapePadrao"/>
         </h:form>

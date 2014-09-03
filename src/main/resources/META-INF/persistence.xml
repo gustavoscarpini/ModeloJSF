@@ -12,6 +12,7 @@
     <class>br.com.bycodesign.entidades.Usuario</class>
     <class>br.com.bycodesign.entidades.RecuperaSenha</class>
     <class>br.com.bycodesign.entidades.Evento</class>
+    <class>br.com.bycodesign.entidades.DataEvento</class>
     <class>br.com.bycodesign.entidades.Participante</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!--        <properties>

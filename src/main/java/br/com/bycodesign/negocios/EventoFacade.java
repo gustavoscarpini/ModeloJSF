@@ -43,4 +43,11 @@ public class EventoFacade extends SuperFacade<Evento> {
         return q.getResultList();
     }
 
+    @Override
+    @Transactional
+    public Object recuperar(Class entidade, Object id) {
+        Evento evento = (Evento) super.recuperar(entidade, id);
+        evento.getDatas().size();
+        return evento;
+    }
 }

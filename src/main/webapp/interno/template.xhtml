@@ -17,11 +17,14 @@
         <h:outputScript library="js" name="locales-calendar-primefaces.js"/>
         <h:outputScript library="js" name="function-eprocon.js"/>
         <h:outputScript library="js" name="function-jquery.js"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
     </h:head>
     <h:body>
+        <div id="spinner"></div>
         <div>
             <div id="cabecalho">
                 <an:cabecalho/>
+
                 <div>
                     <div id="topo-logo">
                         <p:graphicImage value="/resources/images/general/macbook.png"/>
@@ -29,7 +32,7 @@
                     <div id="topo-sistema">
                         <h:panelGrid columns="1" style="margin-left: 10px  ">
                             <span class="font50pxBranco"><span class="verdeLimao negrito">e</span>Dojo</span><br/>
-                            <span class="branco">Gerenciamento da coisa tudo - TUDO</span><br/>
+                            <span class="branco">Gerenciamento de Eventos Esportivos</span><br/>
                             <span class="branco">Code<span class="verdeLimao negrito">sign</span><span
                                     style="font-size: 10px;"> ©</span></span><br/>
                         </h:panelGrid>
@@ -58,27 +61,32 @@
                         <p:hotkey bind="esc" update="@this"
                                   actionListener="#{sistemaControlador.limparTodasMensagens()}" immediate="true"/>
                         <p:messages/>
-                        <h:dataTable value="#{sistemaControlador.mensagens}"
-                                     style="width: 100%"
-                                     var="fMess">
-                            <h:column>
-                                <div class="alert alert-#{sistemaControlador.recuperarClasseGravidadeMensagem(fMess.mensagem)}">
-                                    <h:outputText value="#{fMess.mensagem.summary}"
-                                                  escape="false"
-                                                  rendered="#{fMess.mensagem.detail ne fMess.mensagem.summary}"
-                                                  class="negrito"/>
-                                    <h:outputText value=" - "
-                                                  escape="false"
-                                                  rendered="#{fMess.mensagem.detail ne fMess.mensagem.summary}"/>
-                                    <h:outputText value="#{fMess.mensagem.detail}"
-                                                  escape="false"/>
-                                </div>
-                            </h:column>
-                        </h:dataTable>
+                        <table>
+                            <ui:repeat value="#{sistemaControlador.mensagens}"
+                                       var="fMess">
+                                <tr>
+                                    <td>
+                                        <div class="alert alert-#{sistemaControlador.recuperarClasseGravidadeMensagem(fMess.mensagem)}">
+                                            <h:outputText value="#{fMess.mensagem.summary}"
+                                                          escape="false"
+                                                          rendered="#{fMess.mensagem.detail ne fMess.mensagem.summary}"
+                                                          class="negrito"/>
+                                            <h:outputText value=" - "
+                                                          escape="false"
+                                                          rendered="#{fMess.mensagem.detail ne fMess.mensagem.summary}"/>
+                                            <h:outputText value="#{fMess.mensagem.detail}"
+                                                          escape="false"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
                     </div>
                     <div style="text-align: center">
                         <p:commandButton value="Ok"
                                          icon="ui-icon-check"
+                                         onstart="aguarde.show()"
+                                         oncomplete="aguarde.hide()"
                                          actionListener="#{sistemaControlador.limparTodasMensagens()}"
                                          update=":idMesagensDialog" immediate="true"/>
                     </div>

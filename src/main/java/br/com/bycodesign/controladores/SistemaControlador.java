@@ -107,13 +107,13 @@ public class SistemaControlador implements Serializable {
             retorno = "info";
         }
         if ((mensagem.getSeverity().equals(FacesMessage.SEVERITY_WARN))) {
-            retorno = "warn";
+            retorno = "warning";
         }
         if ((mensagem.getSeverity().equals(FacesMessage.SEVERITY_ERROR))) {
-            retorno = "error";
+            retorno = "danger";
         }
         if ((mensagem.getSeverity().equals(FacesMessage.SEVERITY_FATAL))) {
-            retorno = "fatal";
+            retorno = "danger";
         }
 
         return retorno;

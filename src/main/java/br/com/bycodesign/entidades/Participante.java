@@ -26,11 +26,9 @@ public class Participante implements Serializable, Cadastravel {
     private String nome;
     @Temporal(TemporalType.DATE)
     private Date nascimento;
-
     @CRUD(visualizavel = true, label = "Evento")
     @ManyToOne
     private Evento evento;
-
     @Enumerated(EnumType.STRING)
     private CategoriaPeso categoriaPeso;
     @Enumerated(EnumType.STRING)

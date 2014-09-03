@@ -38,8 +38,8 @@
     <!-- PRIMEFACES -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>aristo</param-value>
-    </context-param> 
+        <param-value>bootstrap</param-value>
+    </context-param>
     <!-- JSF -->
     <context-param>
         <param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>

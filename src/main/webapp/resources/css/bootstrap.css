@@ -183,10 +183,10 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
-td,
-th {
-  padding: 0;
-}
+/*td,*/
+/*th {*/
+  /*padding: 0;*/
+/*}*/
 @media print {
   * {
     color: #000 !important;
@@ -4609,8 +4609,8 @@ a.thumbnail.active {
   color: #333;
 }
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 5px;
+  /*margin-bottom: 20px;*/
   border: 1px solid transparent;
   border-radius: 4px;
 }

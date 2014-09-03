@@ -1,112 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <f:view contentType="text/html; charset=UTF-8">        
-        <h:head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>ADJJ-PR</title>
-            <h:outputStylesheet library="css" name="style.css"  />
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function() {
- 
-                    var usuario = 'Usuário';
-                    var senha = 'Senha';
-                    $("#j_password").hide();
-                    $("#mock_password").show();
+<ui:composition template="/externo/template.xhtml">
+    <ui:define name="body">
 
-                    //init, set watermark text and class
-                    $('#j_username').val(usuario).addClass('watermark');
-                    $('#mock_password').val(senha).addClass('watermark');
- 
-                    //if blur and no value inside, set watermark text and class again.
-                    $('#j_username').blur(function(){
-                        if ($(this).val().length == 0){
-                            $(this).val(usuario).addClass('watermark');                           
-                            $(".user-icon").css("left","0px");          
-                          
-                        }
-                    });                     
-                    //if focus and text is watermrk, set it to empty and remove the watermark class
-                    $('#j_username').focus(function(){
-                        if ($(this).val() == usuario){
-                            $(this).val('').removeClass('watermark');
-                            $(".user-icon").css("left","-48px");
-                        }
-                    });
-                    
-                    $("#mock_password").focus(function() {
-                        $(this).hide();  
-                        $("#j_password").show();
-                        $("#j_password").focus();
-                        $(".pass-icon").css("left","-48px");
-                    });
-                    
-                    $("#j_password").blur(function() {
-                        if($(this).val().length == 0)
-                        {
-                            $(this).hide();  
-                            $("#mock_password").show();
-                            $(".pass-icon").css("left","0px");
-                        }      
-                    });
-                });
- 
-            </script>
-        </h:head>        
-        <h:body>
-            <div class="heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <h1 class="text-center login-title">Entre para continuar no e-DOJO</h1>
 
-            </div>
+                    <div class="account-wall">
+                        <img class="profile-img"
+                             src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                             alt=""/>
+                        <h:form id="login" prependId="false" styleClass="form-signin"
+                                onsubmit="document.getElementById('login').action = '#{facesContext.externalContext.requestContextPath}/j_spring_security_check';">
 
-            <div id="wrapper">
-
-                <div class="user-icon"></div>
-                <div class="pass-icon"></div>
-
-                <h:form id="login" prependId="false"  styleClass="login-form"
-                        onsubmit="document.getElementById('login').action = '#{facesContext.externalContext.requestContextPath}/j_spring_security_check';">
-                    <div class="content">
-                        <h1>Acesso</h1>    
-                        <h:inputText id="j_username" styleClass="input username oitenta" style="margin-top: 25px"  />                     
-                        <h:inputText id="mock_password" styleClass="input password oitenta" style="margin-top: 25px" />
-                        <h:inputSecret id="j_password" styleClass="input password oitenta" style="margin-top: 25px" />
-                    </div>      
-                    <div class="footer2">
-                        <input type="submit"  onclick="login.submit();" name="submit" value="Entrar" class="button oitenta mtop25" />
-
-                        <div style="text-align: center; margin-top: 10px; margin-bottom: 20px">
-                            <a href="#{facesContext.externalContext.requestContextPath}/faces/recuperasenha.xhtml" class="register"> Esqueci minha senha </a>
-                        </div>
-                        <p:outputPanel rendered="${param.login_error != null}">
-                            <center>
-                                <p class="loginError">Usuário ou senha incorretos</p>
-                            </center>
-                        </p:outputPanel>
-                        <p:outputPanel rendered="${param.esqueci_minha_senha != null}">
-                            <center>
-                                <p class="loginError">Problema seu!</p>
-                            </center>
-                        </p:outputPanel>
+                            <h:inputText id="j_username" styleClass="form-control input"/>
+                            <h:inputSecret id="j_password" styleClass="form-control input"/>
+                            <input type="submit" onclick="login.submit();" name="submit" value="Entrar"
+                                   class="btn btn-lg btn-primary btn-block"/>
+                            <label class="checkbox pull-left">
+                                <input type="checkbox" value="remember-me"/>
+                               Lembrar
+                            </label>
+                            <a href="#" class="pull-right need-help">Precisa de Ajuda? </a><span class="clearfix"></span>
+                        </h:form>
                     </div>
-                </h:form>
+                    <a href="#" class="text-center new-account">Esqueci a senha </a>
+                </div>
             </div>
+        </div>
 
-            <div class="footer">
-                <br/>
-                <center>
-                    ADJJPR - Associação para o Desenvolvimento do Jiu Jitsu do Paraná
-                    <br/>
-                    <span style="font-size: 9px">
-                        Copyright © 2014 Codesign. Todos os direitos reservados.
-                    </span>
-                </center>
-            </div>
 
-        </h:body>
-    </f:view>
-</html> 
+    </ui:define>
+</ui:composition>
+</html>

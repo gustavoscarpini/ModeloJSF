@@ -4,6 +4,7 @@
  */
 package br.com.bycodesign.controladores;
 
+import br.com.bycodesign.entidades.DataEvento;
 import br.com.bycodesign.entidades.Estado;
 import br.com.bycodesign.entidades.Evento;
 import br.com.bycodesign.entidades.Participante;
@@ -11,6 +12,8 @@ import br.com.bycodesign.negocios.EstadoFacade;
 import br.com.bycodesign.negocios.EventoFacade;
 import br.com.bycodesign.supers.SuperControlador;
 import br.com.bycodesign.supers.SuperFacade;
+import br.com.bycodesign.util.FacesUtil;
+import br.com.bycodesign.util.Validacao;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLAction.PhaseId;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -41,6 +44,7 @@ public class EventoControlador extends SuperControlador<Evento> implements Seria
     @Autowired
     private EventoFacade eventoFacade;
     private List<Participante> participantes;
+    private DataEvento dataEvento;
 
     public EventoControlador() {
         super(Evento.class);
@@ -65,12 +69,14 @@ public class EventoControlador extends SuperControlador<Evento> implements Seria
     @Override
     public void novo() {
         super.novo();
+        dataEvento = new DataEvento();
     }
 
     @URLAction(mappingId = "editar-evento", phaseId = PhaseId.RENDER_RESPONSE, onPostback = false)
     @Override
     public void editar() {
         super.editar();
+        dataEvento = new DataEvento();
     }
 
     @URLAction(mappingId = "ver-evento", phaseId = PhaseId.RENDER_RESPONSE, onPostback = false)
@@ -83,4 +89,22 @@ public class EventoControlador extends SuperControlador<Evento> implements Seria
         participantes = eventoFacade.getParticipantes(selecionado);
     }
 
+    public DataEvento getDataEvento() {
+        return dataEvento;
+    }
+
+    public void addDataEvento() {
+        Validacao validacao = dataEvento.executaValidacao();
+        if (validacao.isValido()) {
+            dataEvento.setEvento(selecionado);
+            selecionado.addData(dataEvento);
+            dataEvento = new DataEvento();
+        } else {
+            FacesUtil.addAll(validacao.getFacesMensages());
+        }
+    }
+
+    public void removeDataEvento(DataEvento dataEvento) {
+        selecionado.removeData(dataEvento);
+    }
 }

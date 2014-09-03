@@ -2,6 +2,7 @@ package br.com.bycodesign.util;
 
 import br.com.bycodesign.controladores.Web;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -23,6 +24,12 @@ public abstract class FacesUtil {
 
     public static void addFatal(String summary, String detail) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, summary, detail));
+    }
+
+    public static void addAll(List<FacesMessage> messages) {
+        for (FacesMessage message : messages) {
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
 
     public static void addErrorPadrao(Throwable ex) {

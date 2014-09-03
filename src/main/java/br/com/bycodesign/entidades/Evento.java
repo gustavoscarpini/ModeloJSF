@@ -3,18 +3,18 @@ package br.com.bycodesign.entidades;
 import br.com.bycodesign.util.Cadastravel;
 import br.com.bycodesign.util.Validacao;
 import br.com.bycodesign.util.anotacoes.CRUD;
+import com.google.common.collect.Lists;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Audited
-@CRUD(label="Evento")
+@CRUD(label = "Evento")
 public class Evento implements Serializable, Cadastravel {
 
     private static final long serialVersionUID = 1L;
@@ -24,11 +24,18 @@ public class Evento implements Serializable, Cadastravel {
     private Long id;
     @CRUD(visualizavel = true, label = "Nome")
     private String nome;
-    @CRUD(visualizavel = true, label = "Data do Evento")
-    private Date dataEvento;
     @CRUD(visualizavel = true, label = "Número de Vagas")
     private Integer vagas;
+    @CRUD(visualizavel = true, label = "Data para Início das Inscrições")
+    private Date inicioInscricoes;
+    @CRUD(visualizavel = true, label = "Data para Fim das Inscrições")
+    private Date finalInscricoes;
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DataEvento> datas;
 
+    public Evento() {
+        datas = Lists.newArrayList();
+    }
 
     public Long getId() {
         return id;
@@ -46,20 +53,40 @@ public class Evento implements Serializable, Cadastravel {
         this.nome = nome;
     }
 
-    public Date getDataEvento() {
-        return dataEvento;
-    }
-
-    public void setDataEvento(Date dataEvento) {
-        this.dataEvento = dataEvento;
-    }
-
     public Integer getVagas() {
         return vagas;
     }
 
     public void setVagas(Integer vagas) {
         this.vagas = vagas;
+    }
+
+    public List<DataEvento> getDatas() {
+        return datas;
+    }
+
+    public void addData(DataEvento dataEvento) {
+        this.datas.add(dataEvento);
+    }
+
+    public void removeData(DataEvento dataEvento) {
+        this.datas.remove(dataEvento);
+    }
+
+    public Date getInicioInscricoes() {
+        return inicioInscricoes;
+    }
+
+    public void setInicioInscricoes(Date inicioInscricoes) {
+        this.inicioInscricoes = inicioInscricoes;
+    }
+
+    public Date getFinalInscricoes() {
+        return finalInscricoes;
+    }
+
+    public void setFinalInscricoes(Date finalInscricoes) {
+        this.finalInscricoes = finalInscricoes;
     }
 
     @Override
@@ -89,7 +116,7 @@ public class Evento implements Serializable, Cadastravel {
 
     @Override
     public String getCaminhoPadrao() {
-        return "/cadastro/estado/";
+        return "/cadastro/evento/";
     }
 
     @Override
