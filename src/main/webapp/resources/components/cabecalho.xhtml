@@ -15,18 +15,29 @@
         <p:menubar styleClass="barraPrincipal" autoDisplay="false">
             <p:menuitem icon="ui-icon-home" styleClass="mrig10"
                         actionListener="#{sistemaControlador.navegarPara('/interno/home/')}"/>
-            <p:submenu label="Eventos" styleClass="mrig10">
+            <p:submenu label="Cidade" styleClass="mrig10">
                 <p:menuitem value="Incluir"
                             immediate="true"
-                            actionListener="#{sistemaControlador.navegarPara('/cadastro/evento/novo/')}"
+                            actionListener="#{sistemaControlador.navegarPara('/cadastro/cidade/novo/')}"
                             title="Clique para adicionar um novo evento."/>
                 <p:menuitem value="Listar"
                             immediate="true"
-                            actionListener="#{sistemaControlador.navegarPara('/cadastro/evento/listar/')}"
+                            actionListener="#{sistemaControlador.navegarPara('/cadastro/cidade/listar/')}"
                             title="Clique para visualizar os eventos cadastrados"/>
                 <p:separator/>
             </p:submenu>
-            <p:submenu label="Usuários" styleClass="mrig10">
+            <p:submenu label="Estado" styleClass="mrig10">
+                <p:menuitem value="Incluir"
+                            immediate="true"
+                            actionListener="#{sistemaControlador.navegarPara('/cadastro/estado/novo/')}"
+                            title="Clique para adicionar um novo evento."/>
+                <p:menuitem value="Listar"
+                            immediate="true"
+                            actionListener="#{sistemaControlador.navegarPara('/cadastro/estado/listar/')}"
+                            title="Clique para visualizar os eventos cadastrados"/>
+                <p:separator/>
+            </p:submenu>
+            <p:submenu label="Usuário" styleClass="mrig10">
                 <p:menuitem value="Incluir"
                             immediate="true"
                             actionListener="#{sistemaControlador.navegarPara('/admin/usuario/novo/')}"
@@ -38,15 +49,6 @@
             </p:submenu>
             <f:facet name="options">
                 <h:panelGrid columns="4">
-                    <h:commandLink>
-                        <span class="ui-button-icon-left ui-icon ui-c ui-icon-comment"/>
-                    </h:commandLink>
-                    <h:commandLink>
-                        <span class="ui-button-icon-left ui-icon ui-c ui-icon-help"/>
-                    </h:commandLink>
-                    <h:commandLink>
-                        <span class="ui-button-icon-left ui-icon ui-c ui-icon-gear"/>
-                    </h:commandLink>
                     <h:commandLink actionListener="#{sistemaControlador.navegarPara('/logout')}">
                         <span class="ui-button-icon-left ui-icon ui-c ui-icon-power"></span>
                     </h:commandLink>

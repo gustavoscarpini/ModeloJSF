@@ -11,23 +11,20 @@
     <ui:define name="body">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Eventos
-                    <small>Participa aí</small>
+                <h1 class="page-header">Cidades
+                    <small>cadastradas</small>
                 </h1>
             </div>
         </div>
         <h:form id="Formulario">
 
-                <ui:repeat value="#{eventoControlador.lista}" var="evento">
+                <ui:repeat value="#{cidadeControlador.lista}" var="cidade">
                     <div class="col-md-3 portfolio-item">
 
                             <img class="img-responsive" src="http://placehold.it/750x450" alt=""/>
-                            <p class="muted">#{evento.nome}</p>
-                            <p:button value="Quero participar"
-                                      href="/inscricao/#{evento.id}/"
-                                      icon="ui-icon-plus-circle"
-                                      styleClass="mrig05"
-                                      title="Clique para inscrver-se." />
+                            <p class="muted">#{cidade.nome}</p>
+                            <p class="muted">#{cidade.estado.nome}</p>
+
 
                     </div>
                 </ui:repeat>

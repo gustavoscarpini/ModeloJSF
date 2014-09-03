@@ -6,14 +6,11 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <non-jta-data-source>dojoJNDI</non-jta-data-source>
 
-    <class>br.com.bycodesign.entidades.Cidade</class>
-    <class>br.com.bycodesign.entidades.Estado</class>
-    <class>br.com.bycodesign.entidades.RevisaoAuditoria</class>
-    <class>br.com.bycodesign.entidades.Usuario</class>
-    <class>br.com.bycodesign.entidades.RecuperaSenha</class>
-    <class>br.com.bycodesign.entidades.Evento</class>
-    <class>br.com.bycodesign.entidades.DataEvento</class>
-    <class>br.com.bycodesign.entidades.Participante</class>
+    <class>br.com.exemplo.entidades.Cidade</class>
+    <class>br.com.exemplo.entidades.Estado</class>
+    <class>br.com.exemplo.entidades.RevisaoAuditoria</class>
+    <class>br.com.exemplo.entidades.Usuario</class>
+    <class>br.com.exemplo.entidades.RecuperaSenha</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <!--        <properties>
             <property name="hibernate.ejb.event.post-insert" value="org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener"/>

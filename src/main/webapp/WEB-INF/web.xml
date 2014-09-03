@@ -33,7 +33,7 @@
     </context-param>    
     <context-param>
         <param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
-        <param-value>br.com.bycodesign</param-value>
+        <param-value>br.com.exemplo</param-value>
     </context-param>
     <!-- PRIMEFACES -->
     <context-param>
@@ -81,7 +81,7 @@
     </persistence-unit-ref> 
     <persistence-context-ref>
         <persistence-context-ref-name>
-            br.com.bycodesign.seguranca.service.AbstractCadastroService/entityManager
+            br.com.exemplo.seguranca.service.AbstractCadastroService/entityManager
         </persistence-context-ref-name>
         <persistence-unit-name>dojoJNDI</persistence-unit-name>
     </persistence-context-ref>
